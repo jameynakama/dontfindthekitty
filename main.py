@@ -14,10 +14,9 @@ class Game:
         self.window.autoupdate = False
         self.clock = pygame.time.Clock()
 
-        self.creatures = [Creature() for creature in range(25)]
+        self.creatures = [Creature() for creature in range(100)]
         self.zoo_map = ZooMap()
-        for creature in self.creatures:
-            self.zoo_map.grid[creature.ypos][creature.xpos] = creature
+        self.zoo_map.place_creatures(self.creatures)
 
     def run(self):
         while 1:
@@ -33,7 +32,7 @@ class Game:
 
             # compute
             for creature in self.creatures:
-                if random.choice(range(5)) == 1:
+                if random.choice(range(10)) == 1:
                     self.zoo_map = creature.move(self.zoo_map)
 
             # draw
