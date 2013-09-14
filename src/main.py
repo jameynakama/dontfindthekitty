@@ -1,7 +1,8 @@
 import random
 import sys
+
 import pygame
-import pygcurse
+from lib import pygcurse
 
 from constants import *
 from src.classes.Creature import Creature
