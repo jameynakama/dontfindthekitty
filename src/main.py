@@ -1,10 +1,10 @@
 import random
 import sys
 import pygame
-from ZooMap import ZooMap
 import pygcurse
 
 from constants import *
+from ZooMap import ZooMap
 from Creature import Creature
 
 
