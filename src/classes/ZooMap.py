@@ -1,5 +1,5 @@
-from constants import *
-from Thing import Thing
+from src.constants import *
+from src.classes.Thing import Thing
 
 
 class ZooMap:

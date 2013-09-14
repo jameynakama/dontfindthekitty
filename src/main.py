@@ -4,8 +4,8 @@ import pygame
 import pygcurse
 
 from constants import *
-from ZooMap import ZooMap
-from Creature import Creature
+from src.classes.Creature import Creature
+from src.classes.ZooMap import ZooMap
 
 
 class Game:
