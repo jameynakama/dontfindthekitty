@@ -9,7 +9,8 @@ from creature import Creature
 class Game:
     def __init__(self):
         self.window = pygcurse.PygcurseWindow(ZOO_WIDTH, ZOO_HEIGHT, "Don't Find The Kitty")
-        self.creatures = [Creature(self.window) for creature in range(10)]
+        self.window.autoupdate = False
+        self.creatures = [Creature() for creature in range(3)]
         self.clock = pygame.time.Clock()
 
     def run(self):
@@ -33,6 +34,8 @@ class Game:
     def render(self):
         for creature in self.creatures:
             creature.draw(self.window)
+
+        self.window.update()
 
 
 def main():
