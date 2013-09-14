@@ -2,17 +2,18 @@ import random
 import pygame
 
 from constants import *
+from Thing import Thing
 
 
-class Creature:
+class Creature(Thing):
     def __init__(self):
-        self.character = str(random.randint(33, 127))
+        self.character = str(chr(random.randint(33, 127)))
         self.color = pygame.Color(random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
         self.sex = random.choice(('male', 'female'))
-        self.xpos = random.randint(0, ZOO_WIDTH)
-        self.ypos = random.randint(0, ZOO_HEIGHT)
+        self.xpos = random.randint(0, ZOO_WIDTH - 1)
+        self.ypos = random.randint(0, ZOO_HEIGHT - 1)
 
-    def move(self):
+    def move(self, zoo_map):
         newx = 0
         newy = 0
 
@@ -25,6 +26,9 @@ class Creature:
 
         self.xpos = newx
         self.ypos = newy
+
+        zoo_map.grid[self.ypos][self.xpos] = self
+        return zoo_map
 
     def draw(self, window):
         window.putchar(

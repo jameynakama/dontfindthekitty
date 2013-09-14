@@ -1,18 +1,23 @@
 import random
 import sys
 import pygame
+from ZooMap import ZooMap
 import pygcurse
 
 from constants import *
-from creature import Creature
+from Creature import Creature
 
 
 class Game:
     def __init__(self):
         self.window = pygcurse.PygcurseWindow(ZOO_WIDTH, ZOO_HEIGHT, "Don't Find The Kitty")
         self.window.autoupdate = False
-        self.creatures = [Creature() for creature in range(25)]
         self.clock = pygame.time.Clock()
+
+        self.creatures = [Creature() for creature in range(25)]
+        self.zoo_map = ZooMap()
+        for creature in self.creatures:
+            self.zoo_map.grid[creature.ypos][creature.xpos] = creature
 
     def run(self):
         while 1:
@@ -29,15 +34,15 @@ class Game:
             # compute
             for creature in self.creatures:
                 if random.choice(range(5)) == 1:
-                    creature.move()
+                    self.zoo_map = creature.move(self.zoo_map)
 
             # draw
-            self.window.fill(' ', 'black', 'black')
             self.render()
 
     def render(self):
-        for creature in self.creatures:
-            creature.draw(self.window)
+        self.window.fill(' ', 'black', 'black')
+
+        self.zoo_map.draw(self.window)
 
         self.window.update()
 
