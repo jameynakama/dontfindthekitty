@@ -12,5 +12,5 @@ setup(
     version='0.5',
     description='Do your best not to find the kitty',
     options={},
-    executables=[Executable('main.py', base=base)]
+    executables=[Executable('src/main.py', base=base)]
 )
