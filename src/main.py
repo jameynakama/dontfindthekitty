@@ -24,7 +24,7 @@ class Game:
 
     def run(self):
         while 1:
-            self.clock.tick(int(Constants.CONFIG.get('game', 'fps')))
+            self.clock.tick(Constants.CONFIG.getint('game', 'fps'))
 
             self.window.setscreencolors(None, 'black', clear=True)
 
@@ -37,7 +37,7 @@ class Game:
 
             # compute
             for creature in self.creatures:
-                if random.choice(range(10)) == 1:
+                if random.choice(range(Constants.CONFIG.getint('creatures', 'chance_to_move'))) == 1:
                     self.zoo_map = creature.move(self.zoo_map)
 
             # draw
