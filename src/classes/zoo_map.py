@@ -1,10 +1,10 @@
-from helpers.constants import *
+from helpers.constants import Constants
 from classes.creatures import Thing
 
 
 class ZooMap:
     def __init__(self):
-        self.grid = [[Thing() for x in range(ZOO_WIDTH)] for y in range(ZOO_HEIGHT)]
+        self.grid = [[Thing() for x in range(Constants.ZOO_WIDTH)] for y in range(Constants.ZOO_HEIGHT)]
 
     def place_creatures(self, creatures):
         for creature in creatures:

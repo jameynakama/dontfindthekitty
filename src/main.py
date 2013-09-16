@@ -1,9 +1,10 @@
+import ConfigParser
 import random
 import sys
 import pygame
 import pygcurse
 
-from helpers.constants import *
+from helpers.constants import Constants
 from helpers.zookeeper import Zookeeper
 from classes.creatures import Creature
 from classes.zoo_map import ZooMap
@@ -11,19 +12,19 @@ from classes.zoo_map import ZooMap
 
 class Game:
     def __init__(self):
-        self.window = pygcurse.PygcurseWindow(ZOO_WIDTH, ZOO_HEIGHT, "Don't Find The Kitty")
+        self.window = pygcurse.PygcurseWindow(Constants.ZOO_WIDTH, Constants.ZOO_HEIGHT, "Don't Find The Kitty")
         self.window.autoupdate = False
         self.clock = pygame.time.Clock()
 
         pygame.mouse.set_visible(False)
-        self.cursor = Zookeeper()
+        self.cursor = Zookeeper(Constants.CONFIG.get('zookeeper', 'character'))
         self.creatures = [Creature() for creature in range(100)]
         self.zoo_map = ZooMap()
         self.zoo_map.place_creatures(self.creatures)
 
     def run(self):
         while 1:
-            self.clock.tick(FPS)
+            self.clock.tick(int(Constants.CONFIG.get('game', 'fps')))
 
             self.window.setscreencolors(None, 'black', clear=True)
 

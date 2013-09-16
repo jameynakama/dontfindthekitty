@@ -3,8 +3,8 @@ import pygame
 from constants import *
 
 class Zookeeper:
-    def __init__(self):
-        self.character = ZOOKEEPER_CHARACTER
+    def __init__(self, character):
+        self.character = character
         self.color = pygame.Color(255, 255, 255)
 
     def draw(self, window, position):

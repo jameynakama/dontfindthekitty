@@ -1,4 +1,9 @@
-FPS = 10
-ZOO_WIDTH = 40
-ZOO_HEIGHT = 25
-ZOOKEEPER_CHARACTER = '@'
+import ConfigParser
+
+
+class Constants:
+    CONFIG = ConfigParser.ConfigParser()
+    CONFIG.read('data/config.ini')
+
+    ZOO_WIDTH = 40
+    ZOO_HEIGHT = 25
