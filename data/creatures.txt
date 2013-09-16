@@ -1,0 +1,113 @@
+Komodo dragon
+aardvark
+alpaca
+anteater
+antelope
+badger
+bison
+bluebird
+buffalo
+bumblebee
+businessman
+businesswoman
+butterfly
+camel
+catfish
+chinchilla
+cobra
+coral snake
+coyote
+crab
+deer
+dodongo
+dolphin
+donkey
+dove
+echidna
+elephant
+elk
+emu
+ermine
+fawn
+finch
+fire ant
+flamingo
+fly
+fox
+frog
+gazelle
+gila monster
+giraffe
+gnu
+goat
+gorilla
+hamster
+hedgehog
+hermit crab
+hornet
+human
+ibex
+jellyfish
+kiwi
+koala
+krill
+ladybug
+langoustine
+lemur
+llama
+lobster
+loon
+louse
+manatee
+mandrill
+meerkat
+minnow
+mole
+mollusk
+monitor
+mouse
+narwhal
+newt
+ocelot
+owl
+panda
+pelican
+penguin
+polar bear
+pony
+quail
+racoon
+ram
+rook
+salamander
+scorpion
+sea lion
+seahorse
+shark
+sheep
+sloth
+snail
+sparrow
+spiderling
+striped bass
+sunfish
+tadpole
+tapir
+tarantula
+three-toed sloth
+toad
+trilobite
+turkey
+turtle
+urangutan
+vulture
+walrus
+warthog
+weevil
+whale
+wolf
+wolf spider
+woodchuck
+woolly mammoth
+zebrafish
+zebu
