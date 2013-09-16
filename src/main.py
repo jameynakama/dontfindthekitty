@@ -1,11 +1,11 @@
 import random
 import sys
 import pygame
-from ZooMap import ZooMap
 import pygcurse
 
 from constants import *
-from Creature import Creature
+from classes.creatures import Creature
+from classes.zoo_map import ZooMap
 
 
 class Game:
