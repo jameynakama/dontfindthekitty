@@ -4,6 +4,7 @@ import pygame
 import pygcurse
 
 from helpers.constants import *
+from helpers.zookeeper import Zookeeper
 from classes.creatures import Creature
 from classes.zoo_map import ZooMap
 
@@ -14,6 +15,8 @@ class Game:
         self.window.autoupdate = False
         self.clock = pygame.time.Clock()
 
+        pygame.mouse.set_visible(False)
+        self.cursor = Zookeeper()
         self.creatures = [Creature() for creature in range(100)]
         self.zoo_map = ZooMap()
         self.zoo_map.place_creatures(self.creatures)
@@ -22,13 +25,14 @@ class Game:
         while 1:
             self.clock.tick(FPS)
 
+            self.window.setscreencolors(None, 'black', clear=True)
+
+            # input
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit(0)
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
                     sys.exit(0)
-
-            # input
 
             # compute
             for creature in self.creatures:
@@ -39,9 +43,9 @@ class Game:
             self.render()
 
     def render(self):
-        self.window.fill(' ', 'black', 'black')
-
         self.zoo_map.draw(self.window)
+
+        self.cursor.draw(self.window, pygame.mouse.get_pos())
 
         self.window.update()
 

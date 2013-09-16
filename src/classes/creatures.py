@@ -18,6 +18,9 @@ class Creature(Thing):
         self.is_blocking = True
 
         self.character = str(chr(random.randint(33, 127)))
+        # Avoid creating '@' creatures
+        character_range = range(33, ord(ZOOKEEPER_CHARACTER)) + range(ord(ZOOKEEPER_CHARACTER) + 1, 127)
+        self.character = str(chr(random.choice(character_range)))
         self.color = pygame.Color(random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
         self.sex = random.choice(('male', 'female'))
         self.set_random_position()
@@ -43,7 +46,7 @@ class Creature(Thing):
     def draw(self, window):
         window.putchar(
             self.character,
+            fgcolor=self.color,
             x=self.xpos,
             y=self.ypos,
-            fgcolor=self.color,
         )
