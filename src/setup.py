@@ -8,8 +8,11 @@ base = None
 if sys.platform == 'win32':
     base = 'Win32GUI'
 
+includes = []
 zip_includes = [(os.path.abspath('../res/freesansbold.ttf'), 'pygame/freesansbold.ttf')]
+
 options = {
+    'includes': includes,
     'zip_includes': zip_includes,
 }
 
