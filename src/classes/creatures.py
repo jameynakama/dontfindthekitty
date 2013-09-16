@@ -21,6 +21,8 @@ class Creature(Thing):
         # Avoid creating '@' creatures
         character_range.remove(ord(Constants.CONFIG.get('zookeeper', 'character')))
         self.character = str(chr(random.choice(character_range)))
+        self.adjective = random.choice(Constants.ADJECTIVES)
+        self.creature = random.choice(Constants.CREATURES)
         self.color = pygame.Color(random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
         self.sex = random.choice(('male', 'female'))
         self.set_random_position()

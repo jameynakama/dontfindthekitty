@@ -17,7 +17,7 @@ class Game:
         self.clock = pygame.time.Clock()
 
         pygame.mouse.set_visible(False)
-        self.cursor = Zookeeper(Constants.CONFIG.get('zookeeper', 'character'))
+        self.zookeeper = Zookeeper(Constants.CONFIG.get('zookeeper', 'character'))
         self.creatures = [Creature() for creature in range(100)]
         self.zoo_map = ZooMap()
         self.zoo_map.place_creatures(self.creatures)
@@ -35,6 +35,11 @@ class Game:
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
                     sys.exit(0)
 
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    self.zookeeper.capturing = True
+                else:
+                    self.zookeeper.capturing = False
+
             # compute
             for creature in self.creatures:
                 if random.choice(range(Constants.CONFIG.getint('creatures', 'chance_to_move'))) == 1:
@@ -46,7 +51,7 @@ class Game:
     def render(self):
         self.zoo_map.draw(self.window)
 
-        self.cursor.draw(self.window, pygame.mouse.get_pos())
+        self.zookeeper.draw(self.window, pygame.mouse.get_pos())
 
         self.window.update()
 
