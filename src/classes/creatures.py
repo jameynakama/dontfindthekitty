@@ -4,15 +4,7 @@ import pygame
 from helpers.constants import Constants
 
 
-class Thing(object):
-    def __init__(self):
-        self.is_blocking = False
-
-    def draw(self, window):
-        pass
-
-
-class Creature(Thing):
+class Creature(object):
     def __init__(self):
         super(Creature, self).__init__()
         self.is_blocking = True

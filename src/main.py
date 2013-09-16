@@ -36,23 +36,23 @@ class Game:
                     sys.exit(0)
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    self.zookeeper.capturing = True
-                else:
-                    self.zookeeper.capturing = False
+                    xpos, ypos = self.window.getcoordinatesatpixel(event.pos)
+                    print "{0}, {1}".format(xpos, ypos)
+                    self.zoo_map = self.zookeeper.capture(self.zoo_map, xpos, ypos)
 
             # compute
-            for creature in self.creatures:
-                if random.choice(range(Constants.CONFIG.getint('creatures', 'chance_to_move'))) == 1:
-                    self.zoo_map = creature.move(self.zoo_map)
+            for row in self.zoo_map.grid:
+                for thing in row:
+                    if random.choice(range(Constants.CONFIG.getint('creatures', 'chance_to_move'))) == 1:
+                        if isinstance(thing, Creature):
+                            self.zoo_map = thing.move(self.zoo_map)
 
             # draw
             self.render()
 
     def render(self):
         self.zoo_map.draw(self.window)
-
         self.zookeeper.draw(self.window, pygame.mouse.get_pos())
-
         self.window.update()
 
 

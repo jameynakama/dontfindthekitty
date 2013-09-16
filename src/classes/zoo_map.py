@@ -1,10 +1,9 @@
 from helpers.constants import Constants
-from classes.creatures import Thing
 
 
-class ZooMap:
+class ZooMap(object):
     def __init__(self):
-        self.grid = [[Thing() for x in range(Constants.ZOO_WIDTH)] for y in range(Constants.ZOO_HEIGHT)]
+        self.grid = [[None for x in range(Constants.ZOO_WIDTH)] for y in range(Constants.ZOO_HEIGHT)]
 
     def place_creatures(self, creatures):
         for creature in creatures:
@@ -17,8 +16,12 @@ class ZooMap:
 
     def draw(self, window):
         for row in self.grid:
-            for thing in row:
-                thing.draw(window)
+            for creature in row:
+                if creature:
+                    creature.draw(window)
 
     def is_occupied(self, xpos, ypos):
-        return self.grid[ypos][xpos].is_blocking
+        return self.grid[ypos][xpos]
+
+    def remove_creature(self, creature):
+        self.grid[creature.ypos][creature.xpos] = None
