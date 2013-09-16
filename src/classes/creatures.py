@@ -1,7 +1,7 @@
 import random
 import pygame
 
-from constants import *
+from helpers.constants import *
 
 
 class Thing(object):

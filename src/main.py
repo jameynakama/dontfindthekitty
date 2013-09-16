@@ -3,7 +3,7 @@ import sys
 import pygame
 import pygcurse
 
-from constants import *
+from helpers.constants import *
 from classes.creatures import Creature
 from classes.zoo_map import ZooMap
 
