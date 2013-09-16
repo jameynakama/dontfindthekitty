@@ -2,7 +2,14 @@ import random
 import pygame
 
 from constants import *
-from Thing import Thing
+
+
+class Thing(object):
+    def __init__(self):
+        self.is_blocking = False
+
+    def draw(self, window):
+        pass
 
 
 class Creature(Thing):
