@@ -15,12 +15,11 @@ class Zookeeper(object):
 
     def capture(self, zoo_map, xpos, ypos):
         thing = zoo_map.grid[ypos][xpos]
-        if isinstance(thing, Creature):
+        if thing:
             zoo_map.remove_creature(thing)
+            self.captures.append(thing)
             print "[{character}] - {adjective} {creature}".format(
                 character=thing.character,
                 adjective=thing.adjective,
                 creature=thing.creature,
             )
-
-        return zoo_map

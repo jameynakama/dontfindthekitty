@@ -31,11 +31,10 @@ class Creature(object):
             # If the move is within the map boundaries...
             if not zoo_map.is_occupied(newx, newy):
                 # And another creature doesn't occupy this space...
+                zoo_map.grid[self.ypos][self.xpos] = None
                 self.xpos = newx
                 self.ypos = newy
-
-        zoo_map.grid[self.ypos][self.xpos] = self
-        return zoo_map
+                zoo_map.grid[self.ypos][self.xpos] = self
 
     def draw(self, window):
         window.putchar(
