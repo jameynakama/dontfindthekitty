@@ -18,8 +18,4 @@ class Zookeeper(object):
         if thing:
             zoo_map.remove_creature(thing)
             self.captures.append(thing)
-            print "[{character}] - {adjective} {creature}".format(
-                character=thing.character,
-                adjective=thing.adjective,
-                creature=thing.creature,
-            )
+            print thing
