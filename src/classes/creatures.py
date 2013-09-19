@@ -5,14 +5,16 @@ from helpers.constants import Constants
 
 
 class Creature(object):
+    character_range = range(33, 127) + range(161, 440)
+    characters = [unichr(i) for i in character_range]
+    # Avoid creating '@' creatures
+    characters.remove(unichr(ord(Constants.CONFIG.get('zookeeper', 'character'))))
+
     def __init__(self):
         super(Creature, self).__init__()
         self.is_blocking = True
 
-        character_range = range(33, 127)
-        # Avoid creating '@' creatures
-        character_range.remove(ord(Constants.CONFIG.get('zookeeper', 'character')))
-        self.character = str(chr(random.choice(character_range)))
+        self.character = Creature.characters.pop()
         self.adjective = random.choice(Constants.ADJECTIVES)
         self.creature = random.choice(Constants.CREATURES)
         self.color = pygame.Color(random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
@@ -37,7 +39,7 @@ class Creature(object):
                 zoo_map.grid[self.ypos][self.xpos] = self
 
     def draw(self, window):
-        window.putchar(
+        window.write(
             self.character,
             fgcolor=self.color,
             x=self.xpos,
@@ -45,7 +47,7 @@ class Creature(object):
         )
 
     def __repr__(self):
-        return "[{character}] - {adjective} {creature}".format(
+        return u"[{character}] - {adjective} {creature}".format(
             character=self.character,
             adjective=self.adjective,
             creature=self.creature,
