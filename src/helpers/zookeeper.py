@@ -18,6 +18,5 @@ class Zookeeper(object):
         if thing:
             zoo_map.remove_creature(thing)
             self.captures.append(thing)
-            print "%s" % thing
             return thing
         return None
