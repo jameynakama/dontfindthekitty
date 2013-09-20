@@ -14,7 +14,9 @@ from classes.zoo_map import ZooMap
 class Game:
     def __init__(self):
         self.window = pygcurse.PygcurseWindow(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, "Don't Find The Kitty")
-        self.window.font = pygame.font.Font(os.path.join(Constants.RES_DIR, Constants.CONFIG.get('game', 'font')), 12)
+        font_name = Constants.CONFIG.get('game', 'font')
+        font_size = Constants.CONFIG.getint('game', 'font_size')
+        self.window.font = pygame.font.Font(os.path.join(Constants.RES_DIR, font_name), font_size)
         self.window.autoupdate = False
         self.clock = pygame.time.Clock()
 
@@ -49,12 +51,6 @@ class Game:
             self.render()
 
     def render(self):
-        for x in xrange(Constants.ZOO_WIDTH):
-            self.window.putchar('#', x=x, y=0)
-            self.window.putchar('#', x=x, y=Constants.ZOO_HEIGHT - 1)
-        for y in xrange(Constants.ZOO_HEIGHT):
-            self.window.putchar('#', x=0, y=y)
-            self.window.putchar('#', x=Constants.ZOO_WIDTH - 1, y=y)
         self.zoo_map.draw(self.window)
         self.zookeeper.draw(self.window, pygame.mouse.get_pos())
         if getattr(self, 'last_captured', None):

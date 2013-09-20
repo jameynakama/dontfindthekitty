@@ -10,7 +10,7 @@ class Constants:
 
     FPS = 40
     SCREEN_WIDTH = 50
-    SCREEN_HEIGHT = 30
+    SCREEN_HEIGHT = 25
     ZOO_WIDTH = 50
     ZOO_HEIGHT = 20
 

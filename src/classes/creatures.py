@@ -15,6 +15,7 @@ class Creature(object):
         super(Creature, self).__init__()
         self.is_blocking = True
 
+        random.shuffle(Creature.characters)
         self.character = Creature.characters.pop()
         self.adjective = random.choice(Constants.ADJECTIVES)
         self.creature = random.choice(Constants.CREATURES)
@@ -23,8 +24,8 @@ class Creature(object):
         self.set_random_position()
 
     def set_random_position(self):
-        self.xpos = random.randint(1, Constants.ZOO_WIDTH - 1)
-        self.ypos = random.randint(1, Constants.ZOO_HEIGHT - 1)
+        self.xpos = random.randint(1, Constants.ZOO_WIDTH - 2)
+        self.ypos = random.randint(1, Constants.ZOO_HEIGHT - 2)
 
     def move(self, zoo_map):
         direction = random.choice(((0, -1), (0, 1), (-1, 0), (1, 0)))

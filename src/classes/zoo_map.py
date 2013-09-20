@@ -15,6 +15,12 @@ class ZooMap(object):
                     creature.set_random_position()
 
     def draw(self, window):
+        for x in xrange(Constants.ZOO_WIDTH):
+            window.putchar('#', x=x, y=0)
+            window.putchar('#', x=x, y=Constants.ZOO_HEIGHT - 1)
+        for y in xrange(Constants.ZOO_HEIGHT):
+            window.putchar('#', x=0, y=y)
+            window.putchar('#', x=Constants.ZOO_WIDTH - 1, y=y)
         for row in self.grid:
             for creature in row:
                 if creature:
