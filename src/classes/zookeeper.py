@@ -6,7 +6,7 @@ from classes.creatures import Creature
 class Zookeeper(object):
     def __init__(self, character):
         self.character = character
-        self.color = pygame.Color(255, 255, 255)
+        self.color = pygame.Color(255, 255, 0)
         self.captures = []
 
     def draw(self, window, position):
