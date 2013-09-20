@@ -112,3 +112,8 @@ woolly mammoth
 zebrafish
 zebu
 nug
+leper
+coworker
+desk
+imp
+coffee pot
