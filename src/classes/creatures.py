@@ -9,6 +9,7 @@ class Creature(object):
     characters = [unichr(i) for i in character_range]
     # Avoid creating '@' creatures
     characters.remove(unichr(ord(Constants.CONFIG.get('zookeeper', 'character'))))
+    print u'\u255D'
 
     def __init__(self):
         super(Creature, self).__init__()
@@ -22,15 +23,15 @@ class Creature(object):
         self.set_random_position()
 
     def set_random_position(self):
-        self.xpos = random.randint(0, Constants.ZOO_WIDTH - 1)
-        self.ypos = random.randint(0, Constants.ZOO_HEIGHT - 1)
+        self.xpos = random.randint(1, Constants.ZOO_WIDTH - 1)
+        self.ypos = random.randint(1, Constants.ZOO_HEIGHT - 1)
 
     def move(self, zoo_map):
         direction = random.choice(((0, -1), (0, 1), (-1, 0), (1, 0)))
         newx = self.xpos + direction[0]
         newy = self.ypos + direction[1]
-        if (0 <= newx < Constants.ZOO_WIDTH) and (0 <= newy < Constants.ZOO_HEIGHT):
-            # If the move is within the map boundaries...
+        if (1 <= newx < Constants.ZOO_WIDTH - 1) and (1 <= newy < Constants.ZOO_HEIGHT - 1):
+            # If the move is within the zoo boundaries...
             if not zoo_map.is_occupied(newx, newy):
                 # And another creature doesn't occupy this space...
                 zoo_map.grid[self.ypos][self.xpos] = None
