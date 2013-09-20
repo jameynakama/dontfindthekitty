@@ -25,7 +25,7 @@ class Creature(object):
         self.adjective = Constants.ADJECTIVES.pop()
 
         self.color = pygame.Color(random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
-        self.sex = random.choice(('male', 'female'))
+        self.sex = random.choice(('he', 'she'))
         self.set_random_position()
 
     def set_random_position(self):
