@@ -47,10 +47,3 @@ class Creature(object):
             x=self.xpos,
             y=self.ypos,
         )
-
-    def __repr__(self):
-        return u"[{character}] - {adjective} {creature}".format(
-            character=self.character,
-            adjective=self.adjective,
-            creature=self.creature,
-        )

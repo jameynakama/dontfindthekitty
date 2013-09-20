@@ -1,12 +1,12 @@
-import ConfigParser
 import os
 import random
 import sys
 import pygame
 import pygcurse
+from classes.message_panel import MessagePanel
 
 from helpers.constants import Constants
-from helpers.zookeeper import Zookeeper
+from classes.zookeeper import Zookeeper
 from classes.creatures import Creature
 from classes.zoo_map import ZooMap
 
@@ -19,13 +19,14 @@ class Game:
         self.window.font = pygame.font.Font(os.path.join(Constants.RES_DIR, font_name), font_size)
         self.window.autoupdate = False
         self.clock = pygame.time.Clock()
-
         pygame.mouse.set_visible(False)
+
         self.zookeeper = Zookeeper(Constants.CONFIG.get('zookeeper', 'character'))
         self.creatures = [Creature() for n in range(29)]
         self.creatures.append(Creature(creature='kitty'))
         self.zoo_map = ZooMap()
         self.zoo_map.place_creatures(self.creatures)
+        self.message_panel = MessagePanel(0, Constants.ZOO_HEIGHT)
 
     def run(self):
         while 1:
@@ -40,7 +41,7 @@ class Game:
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     xpos, ypos = self.window.getcoordinatesatpixel(event.pos)
-                    self.last_captured = self.zookeeper.capture(self.zoo_map, xpos, ypos)
+                    self.zookeeper.capture(self.zoo_map, xpos, ypos)
 
             # compute
             for row in self.zoo_map.grid:
@@ -53,9 +54,8 @@ class Game:
 
     def render(self):
         self.zoo_map.draw(self.window)
+        self.message_panel.write_captures(self.window, self.zookeeper.captures[-self.message_panel.length:])
         self.zookeeper.draw(self.window, pygame.mouse.get_pos())
-        if getattr(self, 'last_captured', None):
-            self.window.write(self.last_captured.__repr__(), fgcolor='white', x=0, y=Constants.ZOO_HEIGHT)
         self.window.update()
 
 
