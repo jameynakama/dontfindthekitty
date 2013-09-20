@@ -15,10 +15,15 @@ class Creature(object):
         super(Creature, self).__init__()
         self.is_blocking = True
 
-        self.creature = creature if creature else random.choice(Constants.CREATURES)
+        random.shuffle(Constants.CREATURES)
+        self.creature = creature if creature else Constants.CREATURES.pop()
+
         random.shuffle(Creature.characters)
         self.character = Creature.characters.pop()
-        self.adjective = random.choice(Constants.ADJECTIVES)
+
+        random.shuffle(Constants.ADJECTIVES)
+        self.adjective = Constants.ADJECTIVES.pop()
+
         self.color = pygame.Color(random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
         self.sex = random.choice(('male', 'female'))
         self.set_random_position()
