@@ -22,7 +22,8 @@ class Game:
 
         pygame.mouse.set_visible(False)
         self.zookeeper = Zookeeper(Constants.CONFIG.get('zookeeper', 'character'))
-        self.creatures = [Creature() for creature in range(30)]
+        self.creatures = [Creature() for n in range(29)]
+        self.creatures.append(Creature(creature='kitty'))
         self.zoo_map = ZooMap()
         self.zoo_map.place_creatures(self.creatures)
 

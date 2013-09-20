@@ -11,14 +11,14 @@ class Creature(object):
     characters.remove(unichr(ord(Constants.CONFIG.get('zookeeper', 'character'))))
     print u'\u255D'
 
-    def __init__(self):
+    def __init__(self, creature=None):
         super(Creature, self).__init__()
         self.is_blocking = True
 
+        self.creature = creature if creature else random.choice(Constants.CREATURES)
         random.shuffle(Creature.characters)
         self.character = Creature.characters.pop()
         self.adjective = random.choice(Constants.ADJECTIVES)
-        self.creature = random.choice(Constants.CREATURES)
         self.color = pygame.Color(random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
         self.sex = random.choice(('male', 'female'))
         self.set_random_position()
