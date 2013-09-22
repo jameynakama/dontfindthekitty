@@ -1,7 +1,5 @@
 import pygame
 
-from classes.creatures import Creature
-
 
 class Zookeeper(object):
     def __init__(self, character):

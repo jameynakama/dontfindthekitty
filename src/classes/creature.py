@@ -49,6 +49,7 @@ class Creature(object):
         window.write(
             self.character,
             fgcolor=self.color,
+            bgcolor=Constants.ZOO_BG_COLOR,
             x=self.xpos,
             y=self.ypos,
         )

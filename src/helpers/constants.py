@@ -1,5 +1,6 @@
 import ConfigParser
 import os
+import pygame
 
 
 class Constants:
@@ -14,6 +15,7 @@ class Constants:
     SCREEN_HEIGHT = 28
     ZOO_WIDTH = GAME_WIDTH
     ZOO_HEIGHT = 20
+    ZOO_BG_COLOR = pygame.Color(50, 50, 50)
     MESSAGE_PANEL_WIDTH = GAME_WIDTH
     MESSAGE_PANEL_HEIGHT = SCREEN_HEIGHT - ZOO_HEIGHT
 
