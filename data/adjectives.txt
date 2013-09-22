@@ -142,3 +142,5 @@ powerful
 #fml
 undead
 magick
+psychedelic
+passing out
