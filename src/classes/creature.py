@@ -9,7 +9,6 @@ class Creature(object):
     characters = [unichr(i) for i in character_range]
     # Avoid creating '@' creatures
     characters.remove(unichr(ord(Constants.CONFIG.get('zookeeper', 'character'))))
-    print u'\u255D'
 
     def __init__(self, creature=None):
         super(Creature, self).__init__()
