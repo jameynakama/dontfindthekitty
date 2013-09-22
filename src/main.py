@@ -25,7 +25,7 @@ class Game(object):
         pygame.mouse.set_visible(False)
 
         self.zookeeper = Zookeeper(Constants.CONFIG.get('zookeeper', 'character'))
-        self.creatures = [Creature() for n in range(2)]
+        self.creatures = [Creature() for n in range(80)]
         self.creatures.append(Creature(creature='kitty'))
         self.zoo_map = ZooMap()
         self.zoo_map.place_creatures(self.creatures)
@@ -49,9 +49,10 @@ class Game(object):
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     xpos, ypos = self.window.getcoordinatesatpixel(event.pos)
-                    captured = self.zookeeper.capture(self.zoo_map, xpos, ypos)
-                    if captured:
-                        self.last_captured = captured
+                    if 0 < xpos < Constants.ZOO_WIDTH and 0 < ypos < Constants.ZOO_HEIGHT:
+                        captured = self.zookeeper.capture(self.zoo_map, xpos, ypos)
+                        if captured:
+                            self.last_captured = captured
 
             # compute
             if self.last_captured and self.last_captured.creature != 'kitty':
@@ -69,7 +70,7 @@ class Game(object):
         self.zoo_map.draw(self.window)
         self.message_panel.write_captures(self.window, self.zookeeper.captures[-self.message_panel.length:])
         if self.lost:
-            kitty_panel = Panel(xpos=12, ypos=5, width=36, height=7, fgcolor='white', bgcolor='gray', border=True, shadow=True)
+            kitty_panel = Panel(xpos=12, ypos=6, width=36, height=7, fgcolor='white', bgcolor='gray', border=True, shadow=True)
             kitty_panel.draw(self.window)
         self.zookeeper.draw(self.window, pygame.mouse.get_pos())
         self.window.update()
