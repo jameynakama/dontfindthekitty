@@ -1,4 +1,5 @@
 import pygame
+from classes.button import Button
 from helpers.constants import Constants
 
 
@@ -16,7 +17,7 @@ class MessagePanel(object):
             else:
                 message_color = 'yellow'
 
-            window.cursor = (0, self.ypos+i)
+            window.cursor = (0, self.ypos + i)
             window.write("You caught - ", fgcolor=message_color)
             window.write("[", fgcolor=message_color)
             creature_list_color = pygame.Color(
@@ -25,6 +26,9 @@ class MessagePanel(object):
                 creature.color.b/(i+1),
             )
             window.write(u"{character}".format(character=creature.character), fgcolor=creature_list_color)
+            tweet_button = Button(region=(Constants.ZOO_WIDTH - 4, self.ypos + i, 2, 1), fgcolor='blue', bgcolor='white')
+            # tweet_button.text = ' T'
+            tweet_button.draw(window)
 
             if not creature.creature == 'kitty':
                 creature_description = "] - {adjective} {creature}".format(
