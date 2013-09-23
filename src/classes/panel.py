@@ -3,7 +3,7 @@ from helpers.constants import Constants
 
 class Panel(object):
     """
-    Creates a panel that can be drawn to the screen. It can be made with or without a border or shadow.
+    A panel that can be drawn to the screen. It can be made with or without a border or shadow.
     """
     def __init__(self, region, fgcolor, bgcolor, text=None, border=False, shadow=False):
         self.xpos = region[0]

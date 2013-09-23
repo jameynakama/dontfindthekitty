@@ -3,6 +3,8 @@
 import os
 import random
 import sys
+import urllib
+import webbrowser
 import pygame
 import pygcurse
 from classes.button import Button
@@ -30,9 +32,9 @@ class Game(object):
 
         self.zookeeper = Zookeeper(Constants.CONFIG.get('zookeeper', 'character'))
         self.creatures = [Creature() for n in range(5)]
-        self.creatures.append(Creature(creature='kitty'))
+        self.kitty = Creature(creature='kitty')
         self.zoo_map = ZooMap()
-        self.zoo_map.place_creatures(self.creatures)
+        self.zoo_map.place_creatures(self.creatures + [self.kitty])
         self.message_panel = MessagePanel(0, Constants.ZOO_HEIGHT)
         self.last_captured = Creature()
 
@@ -77,22 +79,33 @@ class Game(object):
         self.window.update()
 
     def end_screen(self):
-        kitty_panel = Panel((12, 5, 36, 5), fgcolor='white', bgcolor='gray', border=True, shadow=True)
+        kitty_panel = Panel(region=(12, 5, 36, 5), fgcolor='white', bgcolor='gray', border=True, shadow=True)
         kitty_panel.text = 'Play again?'
 
         buttons = []
 
-        yes_button = Button((18, 8, 6, 1), fgcolor=pygame.Color(0, 100, 0), bgcolor='white')
+        yes_button = Button(region=(18, 8, 6, 1), fgcolor=pygame.Color(0, 100, 0), bgcolor='white')
         yes_button.text = ' yes'
         buttons.append(yes_button)
 
-        no_button = Button((28, 8, 6, 1), fgcolor=pygame.Color(100, 0, 0), bgcolor='white')
+        no_button = Button(region=(28, 8, 6, 1), fgcolor=pygame.Color(100, 0, 0), bgcolor='white')
         no_button.text = '  no'
         no_button.action = lambda: sys.exit(0)
         buttons.append(no_button)
 
-        tweet_button = Button((38, 8, 6, 1), fgcolor=pygame.Color(0, 0, 255), bgcolor='white')
+        tweet_button = Button(region=(38, 8, 6, 1), fgcolor=pygame.Color(0, 0, 255), bgcolor='white')
         tweet_button.text = 'tweet'
+        twitter_text = "I found the kitty! {sex} was {adjective}.".format(
+            sex=self.kitty.sex.capitalize(),
+            adjective=self.kitty.adjective,
+        )
+        twitter_url = 'https://twitter.com/intent/tweet?text={text}&hashtags={hashtags}&via={via}&url={url}'.format(
+            text=urllib.quote(twitter_text),
+            hashtags='dontfindthekitty',
+            via='jameydeorio',
+            url='http://jameydeorio.com',
+        )
+        tweet_button.action = lambda: webbrowser.open(twitter_url)
         buttons.append(tweet_button)
 
         while 1:
@@ -102,7 +115,7 @@ class Game(object):
             self.window.fill(bgcolor=Constants.ZOO_BG_COLOR, region=(1, 1, Constants.ZOO_WIDTH - 2, Constants.ZOO_HEIGHT - 2))
 
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                if (event.type == pygame.QUIT) or (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
                     sys.exit(0)
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
