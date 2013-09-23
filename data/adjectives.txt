@@ -144,3 +144,5 @@ undead
 magick
 psychedelic
 passing out
+great
+giant
