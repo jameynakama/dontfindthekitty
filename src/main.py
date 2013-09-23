@@ -5,6 +5,7 @@ import random
 import sys
 import pygame
 import pygcurse
+from classes.button import Button
 from classes.message_panel import MessagePanel
 from classes.panel import Panel
 
@@ -28,7 +29,7 @@ class Game(object):
         pygame.mouse.set_visible(False)
 
         self.zookeeper = Zookeeper(Constants.CONFIG.get('zookeeper', 'character'))
-        self.creatures = [Creature() for n in range(50)]
+        self.creatures = [Creature() for n in range(5)]
         self.creatures.append(Creature(creature='kitty'))
         self.zoo_map = ZooMap()
         self.zoo_map.place_creatures(self.creatures)
@@ -81,15 +82,16 @@ class Game(object):
 
         buttons = []
 
-        yes_button = Panel((18, 8, 6, 1), fgcolor=pygame.Color(0, 100, 0), bgcolor='white')
-        yes_button.text = 'yes'
+        yes_button = Button((18, 8, 6, 1), fgcolor=pygame.Color(0, 100, 0), bgcolor='white')
+        yes_button.text = ' yes'
         buttons.append(yes_button)
 
-        no_button = Panel((28, 8, 6, 1), fgcolor=pygame.Color(100, 0, 0), bgcolor='white')
-        no_button.text = 'no'
+        no_button = Button((28, 8, 6, 1), fgcolor=pygame.Color(100, 0, 0), bgcolor='white')
+        no_button.text = '  no'
+        no_button.action = lambda: sys.exit(0)
         buttons.append(no_button)
 
-        tweet_button = Panel((38, 8, 6, 1), fgcolor=pygame.Color(0, 0, 255), bgcolor='white')
+        tweet_button = Button((38, 8, 6, 1), fgcolor=pygame.Color(0, 0, 255), bgcolor='white')
         tweet_button.text = 'tweet'
         buttons.append(tweet_button)
 
@@ -107,9 +109,8 @@ class Game(object):
                     xpos, ypos = self.window.getcoordinatesatpixel(event.pos)
                     if 0 < xpos < Constants.ZOO_WIDTH and 0 < ypos < Constants.ZOO_HEIGHT:
                         for button in buttons:
-                            # TODO: Put this check in the button class
-                            if button.xpos <= xpos < button.xpos + button.width and button.ypos <= ypos < button.ypos + button.height:
-                                print "clicked {0}".format(button)
+                            if button.contains(xpos, ypos):
+                                button.execute()
 
             self.zoo_map.draw(self.window)
             self.message_panel.write_captures(self.window, self.zookeeper.captures[-self.message_panel.length:])
