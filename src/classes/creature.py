@@ -1,4 +1,5 @@
 import random
+import urllib
 import pygame
 
 from helpers.constants import Constants
@@ -51,4 +52,23 @@ class Creature(object):
             bgcolor=Constants.ZOO_BG_COLOR,
             x=self.xpos,
             y=self.ypos,
+        )
+
+    def get_twitter_intent_url(self):
+        if self.adjective[0] in Constants.VOWELS:
+            twitter_text = u"I captured [{character}], an {adjective} {creature}.".format(
+                character=self.character,
+                adjective=self.adjective,
+                creature=self.creature,
+            )
+        else:
+            twitter_text = u"I captured [{character}], a {adjective} {creature}.".format(
+                character=self.character,
+                adjective=self.adjective,
+                creature=self.creature,
+            )
+        return 'https://twitter.com/intent/tweet?text={text}&hashtags={hashtags}&url={url}'.format(
+            text=urllib.quote(twitter_text.encode('utf8')),
+            hashtags='dontfindthekitty',
+            url='http://jameydeorio.com',
         )

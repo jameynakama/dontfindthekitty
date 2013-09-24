@@ -1,7 +1,6 @@
-import urllib
 import webbrowser
 import pygame
-from classes.button import Button
+from classes.buttons import Button, TweetButton
 from helpers.constants import Constants
 
 
@@ -11,7 +10,7 @@ class MessagePanel(object):
         self.ypos = ypos
         self.length = Constants.MESSAGE_PANEL_HEIGHT
 
-    def write_captures(self, window, captures):
+    def write_captures(self, game, captures):
         captures.reverse()
         self.buttons = []
         for i, creature in enumerate(captures):
@@ -20,15 +19,15 @@ class MessagePanel(object):
             else:
                 message_color = 'yellow'
 
-            window.cursor = (0, self.ypos + i)
-            window.write("You caught - ", fgcolor=message_color)
-            window.write("[", fgcolor=message_color)
+            game.window.cursor = (0, self.ypos + i)
+            game.window.write("You caught - ", fgcolor=message_color)
+            game.window.write("[", fgcolor=message_color)
             creature_list_color = pygame.Color(
                 creature.color.r/(i+1),
                 creature.color.g/(i+1),
                 creature.color.b/(i+1),
             )
-            window.write(u"{character}".format(character=creature.character), fgcolor=creature_list_color)
+            game.window.write(u"{character}".format(character=creature.character), fgcolor=creature_list_color)
 
             if not creature.creature == 'kitty':
                 creature_description = "] - {adjective} {creature}".format(
@@ -41,31 +40,16 @@ class MessagePanel(object):
                     adjective=creature.adjective,
                 )
 
-            window.write(creature_description, fgcolor=message_color)
+            game.window.write(creature_description, fgcolor=message_color)
 
-            if creature_description[0] in Constants.VOWELS:
-                twitter_text = u"I captured [{character}], an {adjective} {creature}.".format(
-                    character=creature.character,
-                    adjective=creature.adjective,
-                    creature=creature.creature,
-                )
-            else:
-                twitter_text = u"I captured [{character}], a {adjective} {creature}.".format(
-                    character=creature.character,
-                    adjective=creature.adjective,
-                    creature=creature.creature,
-                )
-            twitter_url = 'https://twitter.com/intent/tweet?text={text}&hashtags={hashtags}&url={url}'.format(
-                text=urllib.quote(twitter_text.encode('utf8')),
-                hashtags='dontfindthekitty',
-                url='http://jameydeorio.com',
-            )
-            tweet_button = Button(
+            tweet_button = TweetButton(
+                game=game,
+                intent_url=creature.get_twitter_intent_url(),
                 region=(Constants.ZOO_WIDTH - 4, self.ypos + i, 3, 1),
                 fgcolor=pygame.Color(0, 150, 235),
                 bgcolor=pygame.Color(225, 225, 225)
             )
             tweet_button.text = ' T'
-            tweet_button.action = lambda: webbrowser.open(twitter_url)
+            tweet_button.intent_url = creature.get_twitter_intent_url()
             self.buttons.append(tweet_button)
-            tweet_button.draw(window)
+            tweet_button.draw(game.window)

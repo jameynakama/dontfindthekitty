@@ -9,7 +9,7 @@ import urllib
 import webbrowser
 import pygame
 import pygcurse
-from classes.button import Button
+from classes.buttons import Button, ContinueButton, ExitButton, TweetButton
 from classes.message_panel import MessagePanel
 from classes.panel import Panel
 
@@ -19,7 +19,10 @@ from classes.creature import Creature
 from classes.zoo_map import ZooMap
 
 
+# TODO: Tweet individual captures is broken
+# TODO: Display kitty when player wins, too
 # TODO: End screen is too big and clunky. Refactor.
+# TODO: Game modes: 10, 25, 50, 100 creatures and Game B (hints)
 
 
 class Game(object):
@@ -34,7 +37,7 @@ class Game(object):
         self.window.font = pygame.font.Font(os.path.join(Constants.RES_DIR, font_name), font_size)
 
         self.zookeeper = Zookeeper(Constants.CONFIG.get('zookeeper', 'character'))
-        self.creatures = [Creature() for n in range(3)]
+        self.creatures = [Creature() for n in range(10)]
         self.kitty = Creature(creature='kitty')
         self.creatures.append(self.kitty)
         self.zoo_map = ZooMap()
@@ -45,7 +48,6 @@ class Game(object):
         self.exit_game_loop = False
 
     def run(self):
-
         while not self.exit_game_loop:
             self.clock.tick(Constants.FPS)
 
@@ -72,7 +74,7 @@ class Game(object):
                             break
                     for button in self.message_panel.buttons:
                         if button.contains(xpos, ypos):
-                            button.action()
+                            button.click()
 
             # compute
             for row in self.zoo_map.grid:
@@ -85,7 +87,7 @@ class Game(object):
 
     def render(self):
         self.zoo_map.draw(self.window)
-        self.message_panel.write_captures(self.window, self.zookeeper.captures[-self.message_panel.length:])
+        self.message_panel.write_captures(self, self.zookeeper.captures[-self.message_panel.length:])
         self.zookeeper.draw(self.window, pygame.mouse.get_pos())
         self.window.update()
 
@@ -96,17 +98,15 @@ class Game(object):
 
         buttons = []
 
-        yes_button = Button(region=(18, 8, 6, 1), fgcolor=pygame.Color(0, 100, 0), bgcolor='white')
+        yes_button = ContinueButton(self, region=(18, 8, 6, 1), fgcolor=pygame.Color(0, 100, 0), bgcolor='white')
         yes_button.text = ' yes'
-        yes_button.action = lambda: self.restart()
         buttons.append(yes_button)
 
-        no_button = Button(region=(28, 8, 6, 1), fgcolor=pygame.Color(100, 0, 0), bgcolor='white')
+        no_button = ExitButton(self, region=(28, 8, 6, 1), fgcolor=pygame.Color(100, 0, 0), bgcolor='white')
         no_button.text = '  no'
-        no_button.action = lambda: sys.exit(0)
         buttons.append(no_button)
 
-        tweet_button = Button(region=(38, 8, 6, 1), fgcolor=pygame.Color(0, 0, 255), bgcolor='white')
+        tweet_button = TweetButton(self, region=(38, 8, 6, 1), fgcolor=pygame.Color(0, 0, 255), bgcolor='white')
         tweet_button.text = 'tweet'
         if won:
             twitter_text = u"I didn't find the kitty [{0}]!".format(self.kitty.character)
@@ -116,12 +116,12 @@ class Game(object):
             sex=self.kitty.sex.capitalize(),
             adjective=self.kitty.adjective,
         )
-        twitter_url = 'https://twitter.com/intent/tweet?text={text}&hashtags={hashtags}&url={url}'.format(
+        twitter_intent_url = 'https://twitter.com/intent/tweet?text={text}&hashtags={hashtags}&url={url}'.format(
             text=urllib.quote(twitter_text.encode('utf8')),
             hashtags='dontfindthekitty',
             url='http://jameydeorio.com',
         )
-        tweet_button.action = lambda: webbrowser.open(twitter_url)
+        tweet_button.intent_url = twitter_intent_url
         buttons.append(tweet_button)
 
         while not self.exit_game_loop:
@@ -139,10 +139,10 @@ class Game(object):
                     if 0 < xpos < Constants.ZOO_WIDTH and 0 < ypos < Constants.ZOO_HEIGHT:
                         for button in buttons:
                             if button.contains(xpos, ypos):
-                                button.action()
+                                button.click()
 
             self.zoo_map.draw(self.window)
-            self.message_panel.write_captures(self.window, self.zookeeper.captures[-self.message_panel.length:])
+            self.message_panel.write_captures(self, self.zookeeper.captures[-self.message_panel.length:])
 
             kitty_panel.draw(self.window)
 
