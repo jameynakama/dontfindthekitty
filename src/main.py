@@ -18,8 +18,6 @@ from classes.creature import Creature
 from classes.zoo_map import ZooMap
 
 
-# TODO: Don't rebuild message panel every loop
-# TODO: Tweet individual captures is broken
 # TODO: Display kitty when player wins, too
 # TODO: End screen is too big and clunky. Refactor.
 # TODO: Game modes: 10, 25, 50, 100 creatures and Game B (hints)
@@ -37,7 +35,7 @@ class Game(object):
         self.window.font = pygame.font.Font(os.path.join(Constants.RES_DIR, font_name), font_size)
 
         self.zookeeper = Zookeeper(Constants.CONFIG.get('zookeeper', 'character'))
-        self.creatures = [Creature() for n in range(10)]
+        self.creatures = [Creature() for n in range(70)]
         self.kitty = Creature(creature='kitty')
         self.creatures.append(self.kitty)
         self.zoo_map = ZooMap()
