@@ -1,3 +1,2 @@
 hg+http://bitbucket.org/pygame/pygame
-# pygcurse  # not available via pip
 # cx-Freeze  # does not work via pip

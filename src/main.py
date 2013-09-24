@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
 import os
-import random
 import sys
+sys.path.append(os.path.abspath('lib'))
+
+import random
 import urllib
 import webbrowser
 import pygame
