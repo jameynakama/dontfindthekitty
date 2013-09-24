@@ -18,6 +18,7 @@ from classes.creature import Creature
 from classes.zoo_map import ZooMap
 
 
+# TODO: Don't rebuild message panel every loop
 # TODO: Tweet individual captures is broken
 # TODO: Display kitty when player wins, too
 # TODO: End screen is too big and clunky. Refactor.
@@ -65,6 +66,7 @@ class Game(object):
                         if captured:
                             self.last_captured = captured
                             self.creatures.remove(captured)
+                            self.message_panel.add_capture(self, captured)
                         if self.last_captured.creature == 'kitty':
                             self.end_screen(won=False)
                             break
@@ -86,7 +88,7 @@ class Game(object):
 
     def render(self):
         self.zoo_map.draw(self.window)
-        self.message_panel.write_captures(self, self.zookeeper.captures[-self.message_panel.length:])
+        self.message_panel.write_captures(self)
         self.zookeeper.draw(self.window, pygame.mouse.get_pos())
         self.window.update()
 
@@ -141,7 +143,7 @@ class Game(object):
                                 button.click()
 
             self.zoo_map.draw(self.window)
-            self.message_panel.write_captures(self, self.zookeeper.captures[-self.message_panel.length:])
+            self.message_panel.write_captures(self)
 
             kitty_panel.draw(self.window)
 

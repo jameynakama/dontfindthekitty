@@ -1,7 +1,9 @@
-import webbrowser
 import pygame
-from classes.buttons import Button, TweetButton
+from classes.buttons import TweetButton
 from helpers.constants import Constants
+
+
+# TODO: WHY ARE BUTTONS NOT PERSISTING
 
 
 class MessagePanel(object):
@@ -9,11 +11,30 @@ class MessagePanel(object):
         self.xpos = xpos
         self.ypos = ypos
         self.length = Constants.MESSAGE_PANEL_HEIGHT
-
-    def write_captures(self, game, captures):
-        captures.reverse()
         self.buttons = []
-        for i, creature in enumerate(captures):
+        self.captures = []
+
+    def add_capture(self, game, creature):
+        self.captures.insert(0, creature)
+
+        tweet_button = TweetButton(
+            game=game,
+            intent_url=creature.get_twitter_intent_url(),
+            region=(Constants.ZOO_WIDTH - 4, self.ypos + len(self.captures), 3, 1),
+            fgcolor=pygame.Color(0, 150, 235),
+            bgcolor=pygame.Color(225, 225, 225)
+        )
+        tweet_button.text = ' T'
+        tweet_button.intent_url = creature.get_twitter_intent_url()
+        self.buttons.insert(0, tweet_button)
+
+        if len(self.captures) > Constants.MESSAGE_PANEL_HEIGHT:
+            self.captures.pop()
+            self.buttons.pop()
+
+    def write_captures(self, game):
+        self.buttons = []
+        for i, creature in enumerate(self.captures):
             if not creature.creature == 'kitty':
                 message_color = pygame.Color(255/(i+1), 255/(i+1), 255/(i+1))
             else:
@@ -42,14 +63,5 @@ class MessagePanel(object):
 
             game.window.write(creature_description, fgcolor=message_color)
 
-            tweet_button = TweetButton(
-                game=game,
-                intent_url=creature.get_twitter_intent_url(),
-                region=(Constants.ZOO_WIDTH - 4, self.ypos + i, 3, 1),
-                fgcolor=pygame.Color(0, 150, 235),
-                bgcolor=pygame.Color(225, 225, 225)
-            )
-            tweet_button.text = ' T'
-            tweet_button.intent_url = creature.get_twitter_intent_url()
-            self.buttons.append(tweet_button)
-            tweet_button.draw(game.window)
+            for button in self.buttons:
+                button.draw(game.window)

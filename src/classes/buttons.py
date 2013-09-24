@@ -3,6 +3,9 @@ import webbrowser
 from classes.panel import Panel
 
 
+# TODO: Get game out of those inits
+
+
 class Button(Panel):
     """
     A Panel that can also execute an action
