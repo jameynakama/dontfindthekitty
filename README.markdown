@@ -3,7 +3,7 @@
 
 #### Version do.a.nollie.0.9
 
-*-- prior versions --*
+*-- prior versions --*  
 *whatever.man.0.1*
 
 This is a multi-platform remake of my old game of the [same name](http://royal-paw.com/games/dont-find-the-kitty/).
