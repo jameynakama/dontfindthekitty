@@ -6,10 +6,9 @@ sys.path.append(os.path.abspath('lib'))
 
 import random
 import urllib
-import webbrowser
 import pygame
 import pygcurse
-from classes.buttons import Button, ContinueButton, ExitButton, TweetButton
+from classes.buttons import ContinueButton, ExitButton, TweetButton
 from classes.message_panel import MessagePanel
 from classes.panel import Panel
 

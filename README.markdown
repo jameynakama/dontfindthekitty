@@ -1,16 +1,18 @@
 (Definitely) Don't Find The Kitty
 ================
 
-**Version** whatever.man.0.1
+#### Version do.a.nollie.0.9**
 
-This is (will be) a multi-platform port (Mac, Linux, Windows) of my old game of
-the [same name](http://royal-paw.com/games/dont-find-the-kitty/).
+*-- prior versions --*
+*whatever.man.0.1*
+
+This is a multi-platform remake of my old game of the [same name](http://royal-paw.com/games/dont-find-the-kitty/).
 
 Don’t Find The Kitty is a simple point-and-click game inspired by [Robot Finds
 Kitten](http://www.robotfindskitten.org/). You must capture all the zoo’s moody
-animals, besides the kitty, of course. You can play with 10, 25, or 50 animals,
-as well as try Game B, where the animals give you hints about the kitty’s
-attributes.
+animals, besides the kitty, of course. You can play with 10, 25, 50, or 100
+animals, as well as try Game B, where the animals give you hints about the
+kitty’s attributes.
 
 The Story
 ----------------
@@ -27,7 +29,6 @@ Building
 ### Requirements
 
 - pygame
-- pygcurse
 - cx_Freeze
 
 Building should be straightforward, as much as
