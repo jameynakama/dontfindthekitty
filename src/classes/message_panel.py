@@ -61,7 +61,11 @@ class MessagePanel(object):
                 via='jameydeorio',
                 url='http://jameydeorio.com',
             )
-            tweet_button = Button(region=(Constants.ZOO_WIDTH - 4, self.ypos + i, 3, 1), fgcolor='blue', bgcolor='white')
+            tweet_button = Button(
+                region=(Constants.ZOO_WIDTH - 4, self.ypos + i, 3, 1),
+                fgcolor=pygame.Color(0, 150, 235),
+                bgcolor=pygame.Color(225, 225, 225)
+            )
             tweet_button.text = ' T'
             tweet_button.action = lambda: webbrowser.open(twitter_url)
             self.buttons.append(tweet_button)

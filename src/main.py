@@ -63,10 +63,10 @@ class Game(object):
                         if button.contains(xpos, ypos):
                             button.action()
 
+            # compute
             if self.last_captured and self.last_captured.creature == 'kitty':
                 self.end_screen()
 
-            # compute
             for row in self.zoo_map.grid:
                 for thing in row:
                     if thing and random.choice(range(Constants.CONFIG.getint('creatures', 'chance_to_move'))) == 1:
