@@ -20,7 +20,7 @@ class MessagePanel(object):
         tweet_button = TweetButton(
             game=game,
             intent_url=creature.get_twitter_intent_url(),
-            region=(Constants.ZOO_WIDTH - 4, self.ypos + len(self.captures), 3, 1),
+            region=(Constants.ZOO_WIDTH - 4, 0, 3, 1),  # ypos is calculated in write_captures
             fgcolor=pygame.Color(0, 150, 235),
             bgcolor=pygame.Color(225, 225, 225)
         )
@@ -33,7 +33,9 @@ class MessagePanel(object):
             self.buttons.pop()
 
     def write_captures(self, game):
-        self.buttons = []
+        """
+        Draws the captures and associated tweet buttons to the screen
+        """
         for i, creature in enumerate(self.captures):
             if not creature.creature == 'kitty':
                 message_color = pygame.Color(255/(i+1), 255/(i+1), 255/(i+1))
@@ -63,5 +65,5 @@ class MessagePanel(object):
 
             game.window.write(creature_description, fgcolor=message_color)
 
-            for button in self.buttons:
-                button.draw(game.window)
+            self.buttons[i].ypos = self.ypos + i
+            self.buttons[i].draw(game.window)
