@@ -58,7 +58,6 @@ class MessagePanel(object):
             twitter_url = 'https://twitter.com/intent/tweet?text={text}&hashtags={hashtags}&via={via}&url={url}'.format(
                 text=urllib.quote(twitter_text.encode('utf8')),
                 hashtags='dontfindthekitty',
-                via='jameydeorio',
                 url='http://jameydeorio.com',
             )
             tweet_button = Button(

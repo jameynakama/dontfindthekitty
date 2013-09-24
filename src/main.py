@@ -106,15 +106,17 @@ class Game(object):
 
         tweet_button = Button(region=(38, 8, 6, 1), fgcolor=pygame.Color(0, 0, 255), bgcolor='white')
         tweet_button.text = 'tweet'
-        twitter_text = "I didn't find the kitty!" if won else "I found the kitty!"
+        if won:
+            twitter_text = u"I didn't find the kitty [{0}]!".format(self.kitty.character)
+        else:
+            twitter_text = u"I found the kitty [{0}]!".format(self.kitty.character)
         twitter_text += " {sex} was {adjective}.".format(
             sex=self.kitty.sex.capitalize(),
             adjective=self.kitty.adjective,
         )
         twitter_url = 'https://twitter.com/intent/tweet?text={text}&hashtags={hashtags}&via={via}&url={url}'.format(
-            text=urllib.quote(twitter_text),
+            text=urllib.quote(twitter_text.encode('utf8')),
             hashtags='dontfindthekitty',
-            via='jameydeorio',
             url='http://jameydeorio.com',
         )
         tweet_button.action = lambda: webbrowser.open(twitter_url)
