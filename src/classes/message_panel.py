@@ -3,7 +3,8 @@ from classes.buttons import TweetButton
 from helpers.constants import Constants
 
 
-# TODO: WHY ARE BUTTONS NOT PERSISTING
+# TODO: Refactor messaging based on winning
+# TODO: figure out how to display long lines
 
 
 class MessagePanel(object):
@@ -37,13 +38,18 @@ class MessagePanel(object):
         Draws the captures and associated tweet buttons to the screen
         """
         for i, creature in enumerate(self.captures):
+            game.window.cursor = (0, self.ypos + i)
             if not creature.creature == 'kitty':
                 message_color = pygame.Color(255/(i+1), 255/(i+1), 255/(i+1))
+                game.window.write("You caught - ", fgcolor=message_color)
             else:
-                message_color = 'yellow'
+                if game.won:
+                    message_color = 'green'
+                    game.window.write("You didn't catch - ", fgcolor=message_color)
+                else:
+                    message_color = 'red'
+                    game.window.write("You caught - ", fgcolor=message_color)
 
-            game.window.cursor = (0, self.ypos + i)
-            game.window.write("You caught - ", fgcolor=message_color)
             game.window.write("[", fgcolor=message_color)
             creature_list_color = pygame.Color(
                 creature.color.r/(i+1),

@@ -18,7 +18,6 @@ from classes.creature import Creature
 from classes.zoo_map import ZooMap
 
 
-# TODO: Display kitty when player wins, too
 # TODO: End screen is too big and clunky. Refactor.
 # TODO: Game modes: 10, 25, 50, 100 creatures and Game B (hints)
 
@@ -35,7 +34,7 @@ class Game(object):
         self.window.font = pygame.font.Font(os.path.join(Constants.RES_DIR, font_name), font_size)
 
         self.zookeeper = Zookeeper(Constants.CONFIG.get('zookeeper', 'character'))
-        self.creatures = [Creature() for n in range(70)]
+        self.creatures = [Creature() for n in range(1)]
         self.kitty = Creature(creature='kitty')
         self.creatures.append(self.kitty)
         self.zoo_map = ZooMap()
@@ -43,6 +42,7 @@ class Game(object):
         self.message_panel = MessagePanel(0, Constants.ZOO_HEIGHT)
         self.last_captured = Creature()
 
+        self.won = False
         self.exit_game_loop = False
 
     def run(self):
@@ -61,15 +61,19 @@ class Game(object):
                     xpos, ypos = self.window.getcoordinatesatpixel(event.pos)
                     if 0 < xpos < Constants.ZOO_WIDTH and 0 < ypos < Constants.ZOO_HEIGHT:
                         captured = self.zookeeper.capture(self.zoo_map, xpos, ypos)
+                        # TODO: Refactor all this crud below
                         if captured:
                             self.last_captured = captured
                             self.creatures.remove(captured)
                             self.message_panel.add_capture(self, captured)
                         if self.last_captured.creature == 'kitty':
-                            self.end_screen(won=False)
+                            self.won = False
+                            self.end_screen(won=self.won)
                             break
                         if len(self.creatures) == 1:
-                            self.end_screen(won=True)
+                            self.won = True
+                            self.message_panel.add_capture(self, self.kitty)
+                            self.end_screen(won=self.won)
                             break
                     for button in self.message_panel.buttons:
                         if button.contains(xpos, ypos):
