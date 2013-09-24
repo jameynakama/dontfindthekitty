@@ -59,6 +59,9 @@ class Game(object):
                         captured = self.zookeeper.capture(self.zoo_map, xpos, ypos)
                         if captured:
                             self.last_captured = captured
+                    for button in self.message_panel.buttons:
+                        if button.contains(xpos, ypos):
+                            button.action()
 
             if self.last_captured and self.last_captured.creature == 'kitty':
                 self.end_screen()

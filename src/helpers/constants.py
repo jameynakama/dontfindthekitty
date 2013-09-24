@@ -21,3 +21,5 @@ class Constants:
 
     ADJECTIVES = [line.strip('\n') for line in open(os.path.join(DATA_DIR, 'adjectives.txt'), 'r')]
     CREATURES = [line.strip('\n') for line in open(os.path.join(DATA_DIR, '../data/creatures.txt'), 'r')]
+
+    VOWELS = ['a', 'e', 'i', 'o', 'u']

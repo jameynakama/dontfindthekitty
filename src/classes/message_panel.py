@@ -1,3 +1,5 @@
+import urllib
+import webbrowser
 import pygame
 from classes.button import Button
 from helpers.constants import Constants
@@ -11,6 +13,7 @@ class MessagePanel(object):
 
     def write_captures(self, window, captures):
         captures.reverse()
+        self.buttons = []
         for i, creature in enumerate(captures):
             if not creature.creature == 'kitty':
                 message_color = pygame.Color(255/(i+1), 255/(i+1), 255/(i+1))
@@ -26,9 +29,6 @@ class MessagePanel(object):
                 creature.color.b/(i+1),
             )
             window.write(u"{character}".format(character=creature.character), fgcolor=creature_list_color)
-            tweet_button = Button(region=(Constants.ZOO_WIDTH - 4, self.ypos + i, 2, 1), fgcolor='blue', bgcolor='white')
-            # tweet_button.text = ' T'
-            tweet_button.draw(window)
 
             if not creature.creature == 'kitty':
                 creature_description = "] - {adjective} {creature}".format(
@@ -42,3 +42,27 @@ class MessagePanel(object):
                 )
 
             window.write(creature_description, fgcolor=message_color)
+
+            if creature_description[0] in Constants.VOWELS:
+                twitter_text = u"I captured [{character}], an {adjective} {creature}.".format(
+                    character=creature.character,
+                    adjective=creature.adjective,
+                    creature=creature.creature,
+                )
+            else:
+                twitter_text = u"I captured [{character}], a {adjective} {creature}.".format(
+                    character=creature.character,
+                    adjective=creature.adjective,
+                    creature=creature.creature,
+                )
+            twitter_url = 'https://twitter.com/intent/tweet?text={text}&hashtags={hashtags}&via={via}&url={url}'.format(
+                text=urllib.quote(twitter_text.encode('utf8')),
+                hashtags='dontfindthekitty',
+                via='jameydeorio',
+                url='http://jameydeorio.com',
+            )
+            tweet_button = Button(region=(Constants.ZOO_WIDTH - 4, self.ypos + i, 3, 1), fgcolor='blue', bgcolor='white')
+            tweet_button.text = ' T'
+            tweet_button.action = lambda: webbrowser.open(twitter_url)
+            self.buttons.append(tweet_button)
+            tweet_button.draw(window)
