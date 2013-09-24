@@ -1,7 +1,7 @@
 (Definitely) Don't Find The Kitty
 ================
 
-#### Version do.a.nollie.0.9**
+#### Version do.a.nollie.0.9
 
 *-- prior versions --*
 *whatever.man.0.1*
