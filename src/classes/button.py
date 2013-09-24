@@ -11,6 +11,3 @@ class Button(Panel):
 
     def contains(self, x, y):
         return self.xpos <= x < self.xpos + self.width and self.ypos <= y < self.ypos + self.height
-
-    def execute(self):
-        self.action()

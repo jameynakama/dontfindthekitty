@@ -123,7 +123,7 @@ class Game(object):
                     if 0 < xpos < Constants.ZOO_WIDTH and 0 < ypos < Constants.ZOO_HEIGHT:
                         for button in buttons:
                             if button.contains(xpos, ypos):
-                                button.execute()
+                                button.action()
 
             self.zoo_map.draw(self.window)
             self.message_panel.write_captures(self.window, self.zookeeper.captures[-self.message_panel.length:])
