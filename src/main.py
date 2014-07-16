@@ -34,7 +34,7 @@ class Game(object):
         self.window.font = pygame.font.Font(os.path.join(Constants.RES_DIR, font_name), font_size)
 
         self.zookeeper = Zookeeper(Constants.CONFIG.get('zookeeper', 'character'))
-        self.creatures = [Creature() for n in range(1)]
+        self.creatures = [Creature() for n in range(75)]
         self.kitty = Creature(creature='kitty')
         self.creatures.append(self.kitty)
         self.zoo_map = ZooMap()
